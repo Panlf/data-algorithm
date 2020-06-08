@@ -28,7 +28,13 @@ public class ParseNestJson {
     public void test(){
         String context = "{\"id\":1,\"age\":12,\"content\":[{\"name\":\"qs\",\"code\":7},{\"name\":\"ew\",\"code\":13}],\"friend\":{\"name\":\"re\",\"address\":[{\"name\":\"m\"},{\"name\":\"g\"}]}}";
         List<String> list = Arrays.asList("name");
-        Object result = parseJson(context,list);
+        UpperCaseContext<String,String,String> dealContext = new UpperCaseContext<String,String,String>(){
+            @Override
+            public String dealContext(String t, String u) {
+                return t.toUpperCase()+":"+u.toUpperCase();
+            }
+        };
+        Object result = parseJson(context,list,dealContext);
 
         log.info(JSON.toJSONString(result));
     }
@@ -39,17 +45,17 @@ public class ParseNestJson {
      * @param list
      * @return
      */
-    public Object parseJson(String oValue, List<String> list) {
+    public Object parseJson(String oValue, List<String> list,UpperCaseContext dealContext) {
         if(isJson(oValue)) {
             JSONObject jsonObject = JSONObject.parseObject(oValue);
             for(String key : jsonObject.keySet()) {
                 String value = jsonObject.getString(key);
                 if(!isJson(value) && !isJsonArray(value)) {
                     if(list.contains(key)) {
-                        jsonObject.put(key, dealStr(value));
+                        jsonObject.put(key,dealContext.dealContext(key,value));
                     }
                 }else {
-                    jsonObject.put(key, parseJson(value,list));
+                    jsonObject.put(key, parseJson(value,list,dealContext));
                 }
             }
             return jsonObject;
@@ -57,7 +63,7 @@ public class ParseNestJson {
         if(isJsonArray(oValue)) {
             JSONArray jsonArray = JSONArray.parseArray(oValue);
             for(int i=0;i<jsonArray.size();i++) {
-                jsonArray.set(i,parseJson(jsonArray.get(i).toString(),list));
+                jsonArray.set(i,parseJson(jsonArray.get(i).toString(),list,dealContext));
             }
             return jsonArray;
         }
