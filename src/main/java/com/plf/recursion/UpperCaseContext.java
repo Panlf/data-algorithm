@@ -6,6 +6,6 @@ package com.plf.recursion;
  * @param <R>
  */
 @FunctionalInterface
-public interface UpperCaseContext<T,U,R>  {
+public interface UpperCaseContext<T,U>  {
     String dealContext(String t,String u);
 }

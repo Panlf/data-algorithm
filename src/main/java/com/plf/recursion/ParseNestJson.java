@@ -28,12 +28,16 @@ public class ParseNestJson {
     public void test(){
         String context = "{\"id\":1,\"age\":12,\"content\":[{\"name\":\"qs\",\"code\":7},{\"name\":\"ew\",\"code\":13}],\"friend\":{\"name\":\"re\",\"address\":[{\"name\":\"m\"},{\"name\":\"g\"}]}}";
         List<String> list = Arrays.asList("name");
-        UpperCaseContext<String,String,String> dealContext = new UpperCaseContext<String,String,String>(){
+        //匿名函数写法
+        /*UpperCaseContext<String,String> dealContext = new UpperCaseContext<String,String>(){
             @Override
             public String dealContext(String t, String u) {
                 return t.toUpperCase()+":"+u.toUpperCase();
             }
-        };
+        };*/
+        //Lambda写法
+        UpperCaseContext<String,String> dealContext = (t,u) -> t.toUpperCase()+":"+u.toUpperCase();
+
         Object result = parseJson(context,list,dealContext);
 
         log.info(JSON.toJSONString(result));
