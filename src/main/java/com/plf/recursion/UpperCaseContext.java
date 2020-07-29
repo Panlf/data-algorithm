@@ -3,7 +3,7 @@ package com.plf.recursion;
 /**
  * 传入T,R
  * @param <T>
- * @param <R>
+ * @param <U>
  */
 @FunctionalInterface
 public interface UpperCaseContext<T,U>  {
