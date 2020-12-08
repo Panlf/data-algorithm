@@ -13,7 +13,7 @@ import java.util.TreeMap;
  * 用于统计和查询
  *
  * @author panlf
- * @date 2020-09-18
+ * @date 2020/09/18
  */
 public class Trie {
 

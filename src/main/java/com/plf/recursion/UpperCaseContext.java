@@ -2,8 +2,8 @@ package com.plf.recursion;
 
 /**
  * 传入T,R
- * @param <T>
- * @param <U>
+ * @author  panlf
+ * @date  2020/06/05
  */
 @FunctionalInterface
 public interface UpperCaseContext<T,U>  {
