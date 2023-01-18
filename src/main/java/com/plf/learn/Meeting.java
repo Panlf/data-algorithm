@@ -31,18 +31,18 @@ public class Meeting {
         int time = 0;
         // 已经把所有会议，按照截止时间，从小到大，排序了
         // 截止时间一样的，谁排前谁排后，无所谓
-        for(int i=0;i < meetings.length; i++){
+        for (int[] meeting : meetings) {
             // 如果 time+10 < 截止时间
-            if(time + 10 <= meetings[i][0]){
-                heap.add(meetings[i][1]);
+            if (time + 10 <= meeting[0]) {
+                heap.add(meeting[1]);
                 time += 10;
                 // 如果 time + 10 > 截止时间
                 // 则判断前一个放入的值
                 // 不能通过增加会议数量来安排 只能看能不能挤掉之前收益最不行的会议
-            }else{
-                if(!heap.isEmpty() && heap.peek() < meetings[i][1]){
+            } else {
+                if (!heap.isEmpty() && heap.peek() < meeting[1]) {
                     heap.poll();
-                    heap.add(meetings[i][1]);
+                    heap.add(meeting[1]);
                 }
             }
         }
